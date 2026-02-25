@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Luke's Cardshop | Pokémon, MTG & Yu-Gi-Oh!</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-     <header>
+    <header>
         <a href="index.html" class="logo" aria-label="Home">LUKE'S <span>CARDSHOP</span></a>
         <nav>
             <ul>
@@ -17,81 +16,122 @@
                 <li><a href="#ankauf" class="highlight">Ankauf</a></li>
                 <li><a href="anfahrt.html">Anfahrt</a></li>
                 <li><a href="impressum.html">Impressum</a></li>
+                <li>
+                    <button class="btn-instagram" id="open-share" aria-haspopup="dialog" aria-controls="shareModal" onclick="openShareModal()">Share</button>
+                </li>
             </ul>
         </nav>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Dein Shop für Trading Cards</h1>
-            <p>Packs, Displays, Deckboxen und Einzelkarten – Alles an einem Ort.</p>
-            <a href="#shop" class="btn">Jetzt stöbern</a>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Dein Shop für Trading Cards</h1>
+                <p>Packs, Displays, Deckboxen und Einzelkarten – Alles an einem Ort.</p>
+                <a href="#shop" class="btn">Jetzt stöbern</a>
+            </div>
+        </section>
+
+        <section id="shop" class="categories">
+            <h2>Unsere TCGs</h2>
+            <div class="grid">
+                <a href="https://www.cardmarket.com/de/Pokemon/Users/Lukman29" target="_blank" class="card-link">
+                    <div class="card-item">
+                        <div class="card-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1280px-International_Pok%C3%A9mon_logo.svg.png" alt="Pokémon">
+                        </div>
+                        <div class="card-content">
+                            <h3>Pokémon</h3>
+                            <p>Gotta catch 'em all!</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://www.cardmarket.com/de/Magic/Users/Lukman29" target="_blank" class="card-link">
+                    <div class="card-item">
+                        <div class="card-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Magicthegathering-logo.svg/960px-Magicthegathering-logo.svg.png" alt="Magic The Gathering">
+                        </div>
+                        <div class="card-content">
+                            <h3>Magic: The Gathering</h3>
+                            <p>Das ultimative Strategie-Erlebnis.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://www.cardmarket.com/de/YuGiOh/Users/Lukman29" target="_blank" class="card-link">
+                    <div class="card-item">
+                        <div class="card-image">
+                            <img src="https://www.comic-tempel.de/images/categories/tcg.png" alt="Yu-Gi-Oh!">
+                        </div>
+                        <div class="card-content">
+                            <h3>Yu-Gi-Oh!</h3>
+                            <p>Zeit für ein Duell!</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section id="zubehoer" class="info-section">
+            <div class="info-box">
+                <h2>Zubehör</h2>
+                <p>Sleeves, Deckboxen, Ordner und Spielmatten von Top-Marken.</p>
+            </div>
+            <div id="ankauf" class="info-box buy-back">
+                <h2>Wir kaufen deine Karten!</h2>
+                <p>Du hast Singles oder Sammlungen? Wir machen dir ein faires Angebot für deine Schätze.</p>
+                <a href="mailto:info@lukes-cardshop.de" class="btn-alt">Anfrage senden</a>
+            </div>
+        </section>
+
+        <section id="map" class="map">
+            <h2>Unser Standort</h2>
+            <p>Luke's Cardshop — Schönaich, Deutschland</p>
+            <a href="anfahrt.html" class="btn">Anfahrt</a>
+        </section>
+    </main>
+
+    <!-- Share / Quick Links Overlay -->
+    <div id="shareModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="shareTitle" hidden>
+        <div class="modal-backdrop" onclick="closeShareModal()" tabindex="-1"></div>
+        <div class="modal-content" role="document">
+            <button class="modal-close" aria-label="Schließen" onclick="closeShareModal()">✕</button>
+            <h2 id="shareTitle">Wohin möchtest du?</h2>
+            <p class="muted">Wähle eine Option</p>
+            <div class="modal-actions">
+                <a class="choose-btn" href="anfahrt.html">Maps / Anfahrt</a>
+                <a class="choose-btn" href="https://www.tiktok.com" target="_blank" rel="noopener">TikTok</a>
+                <a class="choose-btn" href="https://instagram.com/lukescardshop" target="_blank" rel="noopener">Instagram</a>
+            </div>
         </div>
-    </section>
-
-   <section id="shop" class="categories">
-    <h2>Unsere TCGs</h2>
-    <div class="grid">
-        
-        <a href="https://www.cardmarket.com/de/Pokemon/Users/Lukman29" target="_blank" class="card-link">
-            <div class="card-item">
-                <div class="card-image">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1280px-International_Pok%C3%A9mon_logo.svg.png" alt="Pokémon">
-                </div>
-                <div class="card-content">
-                    <h3>Pokémon</h3>
-                    <p>Gotta catch 'em all!</p>
-                </div>
-            </div>
-        </a>
-
-        <a href="https://www.cardmarket.com/de/Magic/Users/Lukman29" target="_blank" class="card-link">
-            <div class="card-item">
-                <div class="card-image">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Magicthegathering-logo.svg/960px-Magicthegathering-logo.svg.png" alt="Magic The Gathering">
-                </div>
-                <div class="card-content">
-                    <h3>Magic: The Gathering</h3>
-                    <p>Das ultimative Strategie-Erlebnis.</p>
-                </div>
-            </div>
-        </a>
-
-        <a href="https://www.cardmarket.com/de/YuGiOh/Users/Lukman29" target="_blank" class="card-link">
-            <div class="card-item">
-                <div class="card-image">
-                    <img src="https://www.comic-tempel.de/images/categories/tcg.png" alt="Yu-Gi-Oh!">
-                </div>
-                <div class="card-content">
-                    <h3>Yu-Gi-Oh!</h3>
-                    <p>Zeit für ein Duell!</p>
-                </div>
-            </div>
-        </a>
-
     </div>
-</section>
-
-    <section id="zubehoer" class="info-section">
-        <div class="info-box">
-            <h2>Zubehör</h2>
-            <p>Sleeves, Deckboxen, Ordner und Spielmatten von Top-Marken.</p>
-        </div>
-        <div id="ankauf" class="info-box buy-back">
-            <h2>Wir kaufen deine Karten!</h2>
-            <p>Du hast Singles oder Sammlungen? Wir machen dir ein faires Angebot für deine Schätze.</p>
-            <a href="luka.cardmarket@gmail.com" class="btn-alt">Anfrage senden</a>
-        </div>
-    </section>
-
-    <section id="map" class="map">
-        <h2>Unser Standort</h2>
-        <p>Luke's Cardshop — Schönaich, Deutschland</p>
-        <a href="anfahrt.html" class="btn">Anfahrt</a>
-    </section>
 
     <footer>
         <p>&copy; 2024 Luke's Cardshop. Alle Rechte vorbehalten.</p>
     </footer>
+
+    <script>
+    (function(){
+      const shareModal = document.getElementById('shareModal');
+      const openBtn = document.getElementById('open-share');
+      function openShareModal(){
+        shareModal.hidden = false;
+        document.documentElement.style.overflow = 'hidden';
+        const first = shareModal.querySelector('.choose-btn');
+        if(first) first.focus();
+      }
+      function closeShareModal(){
+        shareModal.hidden = true;
+        document.documentElement.style.overflow = '';
+        if(openBtn) openBtn.focus();
+      }
+      window.openShareModal = openShareModal;
+      window.closeShareModal = closeShareModal;
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape' && !shareModal.hidden) closeShareModal();
+      });
+    })();
+    </script>
 </body>
 </html>
