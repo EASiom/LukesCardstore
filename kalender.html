@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kalender — Luke's Cardshop</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo" aria-label="Home">LUKE'S <span>CARDSHOP</span></a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#shop">Shop</a></li>
+        <li><a href="index.html#zubehoer">Zubehör</a></li>
+        <li><a href="index.html#ankauf" class="highlight">Ankauf</a></li>
+        <li><a href="kalender.html" class="active-nav">Kalender</a></li>
+        <li><a href="anfahrt.html">Anfahrt</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="calendar-page">
+    <section class="calendar-shell">
+      <div class="calendar-topbar">
+        <div>
+          <p class="eyebrow">Besondere Termine</p>
+          <h1>Kalender</h1>
+        </div>
+        <div class="calendar-actions">
+          <button id="prevMonth" type="button" class="calendar-button" aria-label="Vorheriger Monat">‹</button>
+          <h2 id="monthLabel">Monat</h2>
+          <button id="nextMonth" type="button" class="calendar-button" aria-label="Nächster Monat">›</button>
+        </div>
+      </div>
+
+      <div class="calendar-layout">
+        <div class="calendar-panel">
+          <div class="weekday-row">
+            <span>Mo</span>
+            <span>Di</span>
+            <span>Mi</span>
+            <span>Do</span>
+            <span>Fr</span>
+            <span>Sa</span>
+            <span>So</span>
+          </div>
+          <div id="calendarGrid" class="calendar-grid" aria-live="polite"></div>
+        </div>
+
+        <aside class="event-panel">
+          <h3>Events</h3>
+          <ul id="eventList" class="event-list"></ul>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Luke's Cardshop. Alle Rechte vorbehalten.</p>
+  </footer>
+
+  <script src="calendar-data.js"></script>
+  <script src="calendar.js"></script>
+</body>
+</html>
