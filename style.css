@@ -101,7 +101,7 @@ nav ul li a:hover {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-image: linear-gradient(180deg, rgba(11,18,32,0.35), rgba(11,18,32,0.35)), url('images/homepage-img.png');
+  background-image: linear-gradient(180deg, rgba(11,18,32,0.35), rgba(11,18,32,0.35)), url('/LukesCardstore/images/homepage-img.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
