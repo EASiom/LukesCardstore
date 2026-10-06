@@ -3,6 +3,10 @@ const monthLabel = document.getElementById('monthLabel');
 const eventList = document.getElementById('eventList');
 const prevMonthBtn = document.getElementById('prevMonth');
 const nextMonthBtn = document.getElementById('nextMonth');
+const detailModal = document.getElementById('eventDetailModal');
+const detailModalTitle = document.getElementById('eventDetailTitle');
+const detailModalBody = document.getElementById('eventDetailBody');
+const detailModalClose = document.getElementById('eventDetailClose');
 
 const events = Array.isArray(window.specialEvents) ? window.specialEvents : [];
 let currentDate = new Date();
@@ -15,8 +19,60 @@ function formatDateKey(date) {
   return `${year}-${month}-${day}`;
 }
 
+function normalizeCategory(kind) {
+  const value = String(kind || 'special').trim().toLowerCase();
+  if (value === 'turnier' || value === 'tournament') return 'turnier';
+  if (value === 'sale' || value === 'angebot') return 'sale';
+  return 'special';
+}
+
+function getCategoryLabel(kind) {
+  const category = normalizeCategory(kind);
+  const labelMap = {
+    special: 'Special',
+    turnier: 'Turnier',
+    sale: 'Sale'
+  };
+  return labelMap[category] || 'Event';
+}
+
 function getEventsForDate(dateKey) {
   return events.filter((event) => event.date === dateKey);
+}
+
+function openDetailModal(dateKey) {
+  const items = getEventsForDate(dateKey);
+  if (!items.length || !detailModal) return;
+
+  const formattedDate = new Date(`${dateKey}T00:00:00`);
+  detailModalTitle.textContent = new Intl.DateTimeFormat('de-DE', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(formattedDate);
+
+  detailModalBody.innerHTML = items
+    .map((event) => {
+      const category = normalizeCategory(event.category || event.kind || 'special');
+      const location = event.location ? `<p><strong>Ort:</strong> ${event.location}</p>` : '';
+      const time = event.time ? `<p><strong>Uhrzeit:</strong> ${event.time}</p>` : '';
+      return `
+        <article class="event-detail-item category-${category}">
+          <span class="event-badge category-${category}">${getCategoryLabel(event.category || event.kind || 'special')}</span>
+          <h4>${event.title}</h4>
+          ${time}
+          ${location}
+          <p>${event.description}</p>
+        </article>
+      `;
+    })
+    .join('');
+
+  detailModal.hidden = false;
+}
+
+function closeDetailModal() {
+  if (detailModal) detailModal.hidden = true;
 }
 
 function renderEvents(dateKey) {
@@ -31,10 +87,14 @@ function renderEvents(dateKey) {
 
   eventList.innerHTML = items
     .map((event) => {
+      const category = normalizeCategory(event.category || event.kind || 'special');
       const timeMarkup = event.time ? `<span class="event-time">${event.time}</span>` : '';
       return `
-        <li class="event-item ${event.kind || 'special'}">
-          <strong>${event.title}</strong>
+        <li class="event-item category-${category}">
+          <div class="event-item-head">
+            <strong>${event.title}</strong>
+            <span class="event-badge category-${category}">${getCategoryLabel(event.category || event.kind || 'special')}</span>
+          </div>
           ${timeMarkup}
           <span>${event.description}</span>
         </li>
@@ -92,6 +152,7 @@ function renderCalendar() {
       document.querySelectorAll('.calendar-day').forEach((d) => d.classList.remove('selected'));
       cell.classList.add('selected');
       renderEvents(dateKey);
+      openDetailModal(dateKey);
     });
 
     calendarGrid.appendChild(cell);
@@ -109,14 +170,28 @@ function renderCalendar() {
   }
 }
 
-prevMonthBtn.addEventListener('click', () => {
-  currentDate.setMonth(currentDate.getMonth() - 1);
-  renderCalendar();
-});
+if (prevMonthBtn) {
+  prevMonthBtn.addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderCalendar();
+  });
+}
 
-nextMonthBtn.addEventListener('click', () => {
-  currentDate.setMonth(currentDate.getMonth() + 1);
-  renderCalendar();
-});
+if (nextMonthBtn) {
+  nextMonthBtn.addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderCalendar();
+  });
+}
+
+if (detailModalClose) {
+  detailModalClose.addEventListener('click', closeDetailModal);
+}
+
+if (detailModal) {
+  detailModal.addEventListener('click', (event) => {
+    if (event.target === detailModal) closeDetailModal();
+  });
+}
 
 renderCalendar();

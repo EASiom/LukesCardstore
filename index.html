@@ -33,6 +33,16 @@
             </div>
         </section>
 
+        <section class="next-event-section">
+            <div class="next-event-card">
+                <p class="eyebrow">Nächstes Event</p>
+                <h2 id="nextEventTitle">Lade Event...</h2>
+                <p id="nextEventMeta">Bitte warten</p>
+                <p id="nextEventDescription">Die nächsten Termine werden geladen.</p>
+                <a href="kalender.html" class="btn">Zum Kalender</a>
+            </div>
+        </section>
+
         <section id="shop" class="categories">
             <h2>Unsere TCGs</h2>
             <div class="grid">
@@ -112,10 +122,36 @@
         <p>&copy; 2024 Luke's Cardshop. Alle Rechte vorbehalten.</p>
     </footer>
 
+    <script src="calendar-data.js"></script>
     <script>
     (function(){
       const shareModal = document.getElementById('shareModal');
       const openBtn = document.getElementById('open-share');
+      const nextEventTitle = document.getElementById('nextEventTitle');
+      const nextEventMeta = document.getElementById('nextEventMeta');
+      const nextEventDescription = document.getElementById('nextEventDescription');
+
+      const nextEventList = Array.isArray(window.specialEvents) ? window.specialEvents : [];
+      const upcoming = nextEventList
+        .filter((event) => new Date(`${event.date}T00:00:00`) >= new Date(new Date().toDateString()))
+        .sort((a, b) => new Date(`${a.date}T00:00:00`) - new Date(`${b.date}T00:00:00`));
+
+      const nextEvent = upcoming[0];
+      if (nextEvent && nextEventTitle) {
+        nextEventTitle.textContent = nextEvent.title;
+        const dateLabel = new Date(`${nextEvent.date}T00:00:00`).toLocaleDateString('de-DE', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        });
+        nextEventMeta.textContent = `${dateLabel} • ${nextEvent.time || 'Zeit offen'}`;
+        nextEventDescription.textContent = nextEvent.description;
+      } else if (nextEventTitle) {
+        nextEventTitle.textContent = 'Keine Events geplant';
+        nextEventMeta.textContent = 'Momentan keine Termine';
+        nextEventDescription.textContent = 'Schau später wieder vorbei oder öffne den Kalender.';
+      }
+
       function openShareModal(){
         shareModal.hidden = false;
         document.documentElement.style.overflow = 'hidden';
