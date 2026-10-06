@@ -379,6 +379,13 @@ footer {
   font-size: 1rem;
 }
 
+.event-time {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+
 .event-item span {
   color: var(--muted-2);
   font-size: 0.92rem;

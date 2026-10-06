@@ -30,14 +30,16 @@ function renderEvents(dateKey) {
   }
 
   eventList.innerHTML = items
-    .map(
-      (event) => `
+    .map((event) => {
+      const timeMarkup = event.time ? `<span class="event-time">${event.time}</span>` : '';
+      return `
         <li class="event-item ${event.kind || 'special'}">
           <strong>${event.title}</strong>
+          ${timeMarkup}
           <span>${event.description}</span>
         </li>
-      `
-    )
+      `;
+    })
     .join('');
 }
 
