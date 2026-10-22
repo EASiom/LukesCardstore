@@ -1,5 +1,4 @@
-add calander download
-request template ertsellen und schicken
-change tiktok page to something different
+add calander download to phone to add to personal calander
+anfrage frormular fuer bestellungen und verkauefe welche an die whatsapp massage vom besitzer geschickt werden. nebeninfo beim formular: "exotische karten, kaputte und guenstige karten (unter 5euro) koennen weniger kosten/wert sein
+remove tiktok link in share
 remove zubehoer reiter
-change impressum

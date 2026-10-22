@@ -7,10 +7,96 @@ const detailModal = document.getElementById('eventDetailModal');
 const detailModalTitle = document.getElementById('eventDetailTitle');
 const detailModalBody = document.getElementById('eventDetailBody');
 const detailModalClose = document.getElementById('eventDetailClose');
+const downloadCalendarBtn = document.getElementById('downloadCalendar');
 
 const events = Array.isArray(window.specialEvents) ? window.specialEvents : [];
 let currentDate = new Date();
 currentDate.setDate(1);
+
+function escapeCalendarText(value) {
+  return String(value || '')
+    .replace(/\\/g, '\\\\')
+    .replace(/\n/g, '\\n')
+    .replace(/,/g, '\\,')
+    .replace(/;/g, '\\;');
+}
+
+function formatCalendarDate(date) {
+  return `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}`;
+}
+
+function createCalendarFile(upcomingEvents) {
+  const timestamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const calendarEvents = upcomingEvents.map((event) => {
+    const startDate = new Date(`${event.date}T00:00:00`);
+    const uid = `${event.date}-${encodeURIComponent(event.title || 'event')}@lukes-cardshop.com`;
+    const timeMatch = String(event.time || '').match(/(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})/);
+    let dateLines;
+
+    if (timeMatch) {
+      const [, startHour, startMinute, endHour, endMinute] = timeMatch;
+      dateLines = [
+        `DTSTART:${formatCalendarDate(startDate)}T${startHour.padStart(2, '0')}${startMinute}00`,
+        `DTEND:${formatCalendarDate(startDate)}T${endHour.padStart(2, '0')}${endMinute}00`
+      ];
+    } else {
+      const endDate = new Date(startDate);
+      endDate.setDate(endDate.getDate() + 1);
+      dateLines = [
+        `DTSTART;VALUE=DATE:${formatCalendarDate(startDate)}`,
+        `DTEND;VALUE=DATE:${formatCalendarDate(endDate)}`
+      ];
+    }
+
+    return [
+      'BEGIN:VEVENT',
+      `UID:${uid}`,
+      `DTSTAMP:${timestamp}`,
+      ...dateLines,
+      `SUMMARY:${escapeCalendarText(event.title)}`,
+      `DESCRIPTION:${escapeCalendarText(event.description)}`,
+      `LOCATION:${escapeCalendarText(event.location)}`,
+      'END:VEVENT'
+    ].join('\r\n');
+  });
+
+  return [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Luke Cardshop//Event Calendar//DE',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    ...calendarEvents,
+    'END:VCALENDAR',
+    ''
+  ].join('\r\n');
+}
+
+function downloadCalendar() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const upcomingEvents = events.filter((event) => {
+    const eventDate = new Date(`${event.date}T00:00:00`);
+    return !Number.isNaN(eventDate.getTime()) && eventDate >= today;
+  });
+
+  if (!upcomingEvents.length) {
+    downloadCalendarBtn.disabled = true;
+    downloadCalendarBtn.textContent = 'Keine kommenden Events';
+    return;
+  }
+
+  const calendarFile = new Blob([createCalendarFile(upcomingEvents)], {
+    type: 'text/calendar;charset=utf-8'
+  });
+  const downloadLink = document.createElement('a');
+  downloadLink.href = URL.createObjectURL(calendarFile);
+  downloadLink.download = 'lukes-cardshop-events.ics';
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  downloadLink.remove();
+  setTimeout(() => URL.revokeObjectURL(downloadLink.href), 1000);
+}
 
 function formatDateKey(date) {
   const year = date.getFullYear();
@@ -186,6 +272,10 @@ if (nextMonthBtn) {
 
 if (detailModalClose) {
   detailModalClose.addEventListener('click', closeDetailModal);
+}
+
+if (downloadCalendarBtn) {
+  downloadCalendarBtn.addEventListener('click', downloadCalendar);
 }
 
 if (detailModal) {

@@ -79,6 +79,24 @@ nav ul li a:hover {
   font-weight: 700;
 }
 
+.nav-cta {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid rgba(230,238,246,0.2);
+  border-radius: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background 0.12s ease, transform 0.12s ease;
+}
+
+.nav-cta:hover {
+  background: rgba(230,238,246,0.1);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
 /* Instagram / Share button */
 .btn-instagram {
   padding: 8px 12px;
@@ -235,7 +253,8 @@ footer {
 }
 
 .shop-highlights,
-.faq-section {
+.faq-section,
+.inquiry-section {
   padding: 48px 10% 0;
 }
 
@@ -271,6 +290,57 @@ footer {
 .product-card p {
   color: var(--muted-2);
   line-height: 1.5;
+}
+
+.inquiry-section {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.inquiry-section .section-heading > p:last-child {
+  color: var(--muted-2);
+}
+
+.inquiry-form {
+  display: grid;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.inquiry-form label {
+  font-weight: 700;
+}
+
+.inquiry-form input,
+.inquiry-form select,
+.inquiry-form textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--muted);
+  font: inherit;
+}
+
+.inquiry-form textarea {
+  resize: vertical;
+}
+
+.inquiry-note {
+  color: var(--muted-2);
+  font-size: 0.9rem;
+}
+
+.inquiry-form .btn {
+  justify-self: start;
+  cursor: pointer;
+  border: 0;
+  font-size: 1rem;
 }
 
 .faq-list {
@@ -336,6 +406,13 @@ footer {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.calendar-download {
+  margin-top: 12px;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
 }
 
 .calendar-button {
@@ -658,7 +735,7 @@ footer {
   .calendar-topbar { flex-direction: column; align-items: flex-start; }
   .calendar-day { min-height: 90px; }
   .next-event-section { padding: 28px 6% 0; }
-  .shop-highlights, .faq-section { padding-left: 6%; padding-right: 6%; }
+  .shop-highlights, .faq-section, .inquiry-section { padding-left: 6%; padding-right: 6%; }
   .product-card,
   .faq-list details,
   .next-event-card,
