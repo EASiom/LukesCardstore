@@ -3,21 +3,22 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Luke's Cardshop | Pokémon, MTG & Yu-Gi-Oh!</title>
+    <title data-i18n="page.homeTitle">Luke's Cardshop | Pokémon, MTG & Yu-Gi-Oh!</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="language.js" defer></script>
 </head>
 <body>
     <header>
-        <a href="index.html" class="logo" aria-label="Home">LUKE'S <span>CARDSHOP</span></a>
+        <a href="index.html" class="logo" aria-label="Home" data-i18n-aria="common.home">LUKE'S <span>CARDSHOP</span></a>
         <nav>
             <ul>
-                <li><a href="#shop">Shop</a></li>
-                <li><a href="bestellen.html" class="nav-cta">Bestellen & Ankauf</a></li>
-                <li><a href="kalender.html">Kalender</a></li>
-                <li><a href="anfahrt.html" class="highlight">Anfahrt</a></li>
-                <li><a href="impressum.html">Impressum</a></li>
+                <li><a href="#shop" data-i18n="nav.shop">Shop</a></li>
+                <li><a href="bestellen.html" class="nav-cta" data-i18n="nav.order">Bestellen & Ankauf</a></li>
+                <li><a href="kalender.html" data-i18n="nav.calendar">Kalender</a></li>
+                <li><a href="anfahrt.html" class="highlight" data-i18n="nav.directions">Anfahrt</a></li>
+                <li><a href="impressum.html" data-i18n="nav.imprint">Impressum</a></li>
                 <li>
-                    <button class="btn-instagram" id="open-share" aria-haspopup="dialog" aria-controls="shareModal" onclick="openShareModal()">Share</button>
+                    <button class="btn-instagram" id="open-share" aria-haspopup="dialog" aria-controls="shareModal" onclick="openShareModal()" data-i18n="nav.share">Share</button>
                 </li>
             </ul>
         </nav>
@@ -26,24 +27,24 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <h1>Dein Shop für Trading Cards</h1>
-                <p>Packs, Displays, Deckboxen und Einzelkarten – Alles an einem Ort.</p>
-                <a href="#shop" class="btn">Jetzt stöbern</a>
+                <h1 data-i18n="home.heroTitle">Dein Shop für Trading Cards</h1>
+                <p data-i18n="home.heroDescription">Packs, Displays, Deckboxen und Einzelkarten – Alles an einem Ort.</p>
+                <a href="#shop" class="btn" data-i18n="home.browse">Jetzt stöbern</a>
             </div>
         </section>
 
         <section class="next-event-section">
             <div class="next-event-card">
-                <p class="eyebrow">Nächstes Event</p>
-                <h2 id="nextEventTitle">Lade Event...</h2>
-                <p id="nextEventMeta">Bitte warten</p>
-                <p id="nextEventDescription">Die nächsten Termine werden geladen.</p>
-                <a href="kalender.html" class="btn">Zum Kalender</a>
+                <p class="eyebrow" data-i18n="home.nextEvent">Nächstes Event</p>
+                <h2 id="nextEventTitle" data-i18n="home.loadingEvent">Lade Event...</h2>
+                <p id="nextEventMeta" data-i18n="home.pleaseWait">Bitte warten</p>
+                <p id="nextEventDescription" data-i18n="home.loadingDescription">Die nächsten Termine werden geladen.</p>
+                <a href="kalender.html" class="btn" data-i18n="home.calendarLink">Zum Kalender</a>
             </div>
         </section>
 
         <section id="shop" class="categories">
-            <h2>Unsere TCGs</h2>
+            <h2 data-i18n="home.tcgHeading">Unsere TCGs</h2>
             <div class="grid">
                 <a href="https://www.cardmarket.com/de/Pokemon/Users/Lukman29" target="_blank" class="card-link">
                     <div class="card-item">
@@ -64,7 +65,7 @@
                         </div>
                         <div class="card-content">
                             <h3>Magic: The Gathering</h3>
-                            <p>Das ultimative Strategie-Erlebnis.</p>
+                            <p data-i18n="home.mtDescription">Das ultimative Strategie-Erlebnis.</p>
                         </div>
                     </div>
                 </a>
@@ -76,7 +77,7 @@
                         </div>
                         <div class="card-content">
                             <h3>Yu-Gi-Oh!</h3>
-                            <p>Zeit für ein Duell!</p>
+                            <p data-i18n="home.duel">Zeit für ein Duell!</p>
                         </div>
                     </div>
                 </a>
@@ -85,60 +86,60 @@
 
         <section class="shop-highlights">
             <div class="section-heading">
-                <h2>Für jeden Kartenliebhaber</h2>
+                <h2 data-i18n="home.cardFans">Für jeden Kartenliebhaber</h2>
             </div>
             <div class="product-grid">
                 <article class="product-card">
                     <div class="product-icon">🎴</div>
                     <h3>Booster & Packs</h3>
-                    <p>Frische Releases, Kultsets und neue Überraschungen direkt für deinen nächsten Draft oder Pull.</p>
+                    <p data-i18n="home.boosters">Frische Releases, Kultsets und neue Überraschungen direkt für deinen nächsten Draft oder Pull.</p>
                 </article>
                 <article class="product-card">
                     <div class="product-icon">💎</div>
-                    <h3>Singles & Sammlungen</h3>
-                    <p>Einzelkarten, komplette Sammlungen und hochwertige Schätze für echte Collector.</p>
+                    <h3 data-i18n="home.singlesTitle">Singles & Sammlungen</h3>
+                    <p data-i18n="home.singles">Einzelkarten, komplette Sammlungen und hochwertige Schätze für echte Collector.</p>
                 </article>
                 <article class="product-card">
                     <div class="product-icon">🧰</div>
-                    <h3>Decks & Zubehör</h3>
-                    <p>Decks, Sleeves, Koffer, Matten und alles, was du für deinen Spielabend brauchst.</p>
+                    <h3 data-i18n="home.accessoriesTitle">Decks & Zubehör</h3>
+                    <p data-i18n="home.accessories">Decks, Sleeves, Koffer, Matten und alles, was du für deinen Spielabend brauchst.</p>
                 </article>
                 <article class="product-card">
                     <div class="product-icon">💬</div>
-                    <h3>Persönliche Beratung</h3>
-                    <p>Frage nach Bestellungen, Verfügbarkeit oder Empfehlungen – wir helfen dir gerne weiter.</p>
+                    <h3 data-i18n="home.advice">Persönliche Beratung</h3>
+                    <p data-i18n="home.adviceDescription">Frage nach Bestellungen, Verfügbarkeit oder Empfehlungen – wir helfen dir gerne weiter.</p>
                 </article>
             </div>
         </section>
 
         <section class="faq-section">
             <div class="section-heading">
-                <h2>FAQ & Ankauf</h2>
+                <h2 data-i18n="home.faqHeading">FAQ & Ankauf</h2>
             </div>
             <div class="faq-list">
                 <details open>
-                    <summary>Wie funktioniert der Ankauf?</summary>
-                    <p>Schick uns einfach eine Nachricht mit deiner Sammlung oder nenn uns kurz, welche Karten du verkaufen willst. Danach machen wir dir ein faires Angebot und besprechen die nächsten Schritte.</p>
+                    <summary data-i18n="home.buyFaq">Wie funktioniert der Ankauf?</summary>
+                    <p data-i18n="home.buyAnswer">Schick uns einfach eine Nachricht mit deiner Sammlung oder nenn uns kurz, welche Karten du verkaufen willst. Danach machen wir dir ein faires Angebot und besprechen die nächsten Schritte.</p>
                 </details>
                 <details>
-                    <summary>Welche Zahlungsmethoden gibt es?</summary>
-                    <p>Wir akzeptieren in der Regel Barzahlung, Überweisung und je nach Situation auch direkte Abrechnung bei einem Shopbesuch.</p>
+                    <summary data-i18n="home.paymentFaq">Welche Zahlungsmethoden gibt es?</summary>
+                    <p data-i18n="home.paymentAnswer">Wir akzeptieren in der Regel Barzahlung, Überweisung und je nach Situation auch direkte Abrechnung bei einem Shopbesuch.</p>
                 </details>
                 <details>
-                    <summary>Kann ich auch nach einzelnen Karten fragen?</summary>
-                    <p>Ja! Wenn du nach bestimmten Singles, Sets oder Sonderkarten suchst, schick uns einfach eine Nachricht mit Namen und gewünschter Menge.</p>
+                    <summary data-i18n="home.singlesFaq">Kann ich auch nach einzelnen Karten fragen?</summary>
+                    <p data-i18n="home.singlesAnswer">Ja! Wenn du nach bestimmten Singles, Sets oder Sonderkarten suchst, schick uns einfach eine Nachricht mit Namen und gewünschter Menge.</p>
                 </details>
                 <details>
-                    <summary>Gibt es auch Spezialangebote oder Saison-Events?</summary>
-                    <p>Ja. Auf unserer Kalenderseite findest du regelmäßig Events, Sonderangebote, Turniere und besondere Shop-Termine.</p>
+                    <summary data-i18n="home.eventsFaq">Gibt es auch Spezialangebote oder Saison-Events?</summary>
+                    <p data-i18n="home.eventsAnswer">Ja. Auf unserer Kalenderseite findest du regelmäßig Events, Sonderangebote, Turniere und besondere Shop-Termine.</p>
                 </details>
             </div>
         </section>
 
         <section id="map" class="map">
-            <h2>Unser Standort</h2>
-            <p>Luke's Cardshop — Schönaich, Deutschland</p>
-            <a href="anfahrt.html" class="btn">Anfahrt</a>
+            <h2 data-i18n="home.location">Unser Standort</h2>
+            <p data-i18n="home.locationText">Luke's Cardshop — Schönaich, Deutschland</p>
+            <a href="anfahrt.html" class="btn" data-i18n="nav.directions">Anfahrt</a>
         </section>
     </main>
 
@@ -146,9 +147,9 @@
     <div id="shareModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="shareTitle" hidden>
         <div class="modal-backdrop" onclick="closeShareModal()" tabindex="-1"></div>
         <div class="modal-content" role="document">
-            <button class="modal-close" aria-label="Schließen" onclick="closeShareModal()">✕</button>
-            <h2 id="shareTitle">Wohin möchtest du?</h2>
-            <p class="muted">Wähle eine Option</p>
+            <button class="modal-close" aria-label="Schließen" data-i18n-aria="common.close" onclick="closeShareModal()">✕</button>
+            <h2 id="shareTitle" data-i18n="home.shareTitle">Wohin möchtest du?</h2>
+            <p class="muted" data-i18n="home.sharePrompt">Wähle eine Option</p>
             <div class="modal-actions">
                 <a class="choose-btn" href="https://www.google.com/maps/place/Luke%C2%B4s+Cardshop/@48.6549995,9.0624328,17z/data=!3m1!4b1!4m6!3m5!1s0x4799e787cd3f7485:0x36aa8a5be6e7cb00!8m2!3d48.654996!4d9.0650131!16s%2Fg%2F11vt9ll8b2?entry=ttu&g_ep=EgoyMDI2MDIyMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Google Maps</a>
                 <a class="choose-btn" href="https://www.instagram.com/lukecardshop/" target="_blank" rel="noopener">Instagram</a>
@@ -157,7 +158,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2024 Luke's Cardshop. Alle Rechte vorbehalten.</p>
+        <p data-i18n="footer.copyright">&copy; 2024 Luke's Cardshop. Alle Rechte vorbehalten.</p>
     </footer>
 
     <script>
@@ -177,20 +178,25 @@
         .sort((a, b) => new Date(`${a.date}T00:00:00`) - new Date(`${b.date}T00:00:00`));
 
       const nextEvent = upcoming[0];
-      if (nextEvent && nextEventTitle) {
-        nextEventTitle.textContent = nextEvent.title;
-        const dateLabel = new Date(`${nextEvent.date}T00:00:00`).toLocaleDateString('de-DE', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric'
-        });
-        nextEventMeta.textContent = `${dateLabel} • ${nextEvent.time || 'Zeit offen'}`;
-        nextEventDescription.textContent = nextEvent.description;
-      } else if (nextEventTitle) {
-        nextEventTitle.textContent = 'Keine Events geplant';
-        nextEventMeta.textContent = 'Momentan keine Termine';
-        nextEventDescription.textContent = 'Schau später wieder vorbei oder öffne den Kalender.';
-      }
+      const renderNextEvent = () => {
+        if (nextEvent && nextEventTitle) {
+          nextEventTitle.textContent = window.getLocalizedEventText(nextEvent, 'title');
+          const dateLabel = new Date(`${nextEvent.date}T00:00:00`).toLocaleDateString(window.siteLanguage === 'en' ? 'en-GB' : 'de-DE', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+          const time = window.getLocalizedEventText(nextEvent, 'time');
+          nextEventMeta.textContent = `${dateLabel} • ${time || window.t('home.timeTbc')}`;
+          nextEventDescription.textContent = window.getLocalizedEventText(nextEvent, 'description');
+        } else if (nextEventTitle) {
+          nextEventTitle.textContent = window.t('home.noEvents');
+          nextEventMeta.textContent = window.t('home.noEventsMeta');
+          nextEventDescription.textContent = window.t('home.noEventsDescription');
+        }
+      };
+      renderNextEvent();
+      document.addEventListener('languagechange', renderNextEvent);
 
       function openShareModal(){
         shareModal.hidden = false;
@@ -212,9 +218,9 @@
       })();
     };
     calendarDataScript.onerror = () => {
-      document.getElementById('nextEventTitle').textContent = 'Eventdaten nicht verfügbar';
-      document.getElementById('nextEventMeta').textContent = 'Events konnten nicht geladen werden.';
-      document.getElementById('nextEventDescription').textContent = 'Bitte lade die Seite später erneut.';
+      document.getElementById('nextEventTitle').textContent = window.t('home.eventsUnavailable');
+      document.getElementById('nextEventMeta').textContent = window.t('home.eventsLoadError');
+      document.getElementById('nextEventDescription').textContent = window.t('home.retryLater');
     };
     document.body.appendChild(calendarDataScript);
     </script>

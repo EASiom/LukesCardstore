@@ -3,29 +3,30 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Anfahrt — Luke's Cardshop</title>
+    <title data-i18n="page.directionsTitle">Anfahrt — Luke's Cardshop</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="language.js" defer></script>
 </head>
 <body>
 
     <header>
-        <a href="index.html" class="logo" aria-label="Home">LUKE'S <span>CARDSHOP</span></a>
+        <a href="index.html" class="logo" aria-label="Home" data-i18n-aria="common.home">LUKE'S <span>CARDSHOP</span></a>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index.html#shop">Shop</a></li>
-                <li><a href="bestellen.html" class="nav-cta">Bestellen & Ankauf</a></li>
-                <li><a href="kalender.html">Kalender</a></li>
-                <li><a href="anfahrt.html" class="highlight">Anfahrt</a></li>
-                <li><a href="impressum.html">Impressum</a></li>
+                <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                <li><a href="index.html#shop" data-i18n="nav.shop">Shop</a></li>
+                <li><a href="bestellen.html" class="nav-cta" data-i18n="nav.order">Bestellen & Ankauf</a></li>
+                <li><a href="kalender.html" data-i18n="nav.calendar">Kalender</a></li>
+                <li><a href="anfahrt.html" class="highlight" data-i18n="nav.directions">Anfahrt</a></li>
+                <li><a href="impressum.html" data-i18n="nav.imprint">Impressum</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section id="map-page" class="map">
-            <h1>Anfahrt</h1>
-            <p>Luke's Cardshop — Schönaich, Deutschland</p>
+            <h1 data-i18n="directions.title">Anfahrt</h1>
+            <p data-i18n="home.locationText">Luke's Cardshop — Schönaich, Deutschland</p>
 
             <div class="map-container">
                 <iframe
@@ -33,16 +34,17 @@
                     src="https://www.google.com/maps?q=Luke%27s+Cardshop+Schonaich+Germany&output=embed&z=19"
                     allowfullscreen
                     loading="lazy"
-                    title="Luke's Cardshop — Karte">
+                    title="Luke's Cardshop — Karte"
+                    data-i18n-title="directions.mapTitle">
                 </iframe>
             </div>
 
-            <p><a href="index.html" class="btn">Zurück</a></p>
+            <p><a href="index.html" class="btn" data-i18n="common.back">Zurück</a></p>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 Luke's Cardshop. Alle Rechte vorbehalten.</p>
+        <p data-i18n="footer.copyright">&copy; 2024 Luke's Cardshop. Alle Rechte vorbehalten.</p>
     </footer>
 </body>
 </html>

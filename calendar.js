@@ -11,6 +11,13 @@ const detailModalClose = document.getElementById('eventDetailClose');
 const events = Array.isArray(window.specialEvents) ? window.specialEvents : [];
 let currentDate = new Date();
 currentDate.setDate(1);
+let selectedDateKey = null;
+
+function getEventText(event, field) {
+  return window.getLocalizedEventText
+    ? window.getLocalizedEventText(event, field)
+    : event[field];
+}
 
 function escapeCalendarText(value) {
   return String(value || '')
@@ -52,9 +59,9 @@ function createCalendarFile(upcomingEvents) {
       `UID:${uid}`,
       `DTSTAMP:${timestamp}`,
       ...dateLines,
-      `SUMMARY:${escapeCalendarText(event.title)}`,
-      `DESCRIPTION:${escapeCalendarText(event.description)}`,
-      `LOCATION:${escapeCalendarText(event.location)}`,
+      `SUMMARY:${escapeCalendarText(getEventText(event, 'title'))}`,
+      `DESCRIPTION:${escapeCalendarText(getEventText(event, 'description'))}`,
+      `LOCATION:${escapeCalendarText(getEventText(event, 'location'))}`,
       'END:VEVENT'
     ].join('\r\n');
   });
@@ -105,11 +112,11 @@ function normalizeCategory(kind) {
 function getCategoryLabel(kind) {
   const category = normalizeCategory(kind);
   const labelMap = {
-    special: 'Special',
-    turnier: 'Turnier',
-    sale: 'Sale'
+    special: window.t('calendar.special'),
+    turnier: window.t('calendar.tournament'),
+    sale: window.t('calendar.sale')
   };
-  return labelMap[category] || 'Event';
+  return labelMap[category] || window.t('calendar.event');
 }
 
 function getEventsForDate(dateKey) {
@@ -119,9 +126,11 @@ function getEventsForDate(dateKey) {
 function openDetailModal(dateKey) {
   const items = getEventsForDate(dateKey);
   if (!items.length || !detailModal) return;
+  selectedDateKey = dateKey;
 
   const formattedDate = new Date(`${dateKey}T00:00:00`);
-  detailModalTitle.textContent = new Intl.DateTimeFormat('de-DE', {
+  const locale = window.siteLanguage === 'en' ? 'en-GB' : 'de-DE';
+  detailModalTitle.textContent = new Intl.DateTimeFormat(locale, {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
@@ -131,16 +140,20 @@ function openDetailModal(dateKey) {
     .map((event) => {
       const category = normalizeCategory(event.category || event.kind || 'special');
       const eventIndex = events.indexOf(event);
-      const location = event.location ? `<p><strong>Ort:</strong> ${event.location}</p>` : '';
-      const time = event.time ? `<p><strong>Uhrzeit:</strong> ${event.time}</p>` : '';
+      const location = getEventText(event, 'location')
+        ? `<p><strong>${window.t('calendar.location')}</strong> ${getEventText(event, 'location')}</p>`
+        : '';
+      const time = event.time
+        ? `<p><strong>${window.t('calendar.time')}</strong> ${event.time}</p>`
+        : '';
       return `
         <article class="event-detail-item category-${category}">
           <span class="event-badge category-${category}">${getCategoryLabel(event.category || event.kind || 'special')}</span>
-          <h4>${event.title}</h4>
+          <h4>${getEventText(event, 'title')}</h4>
           ${time}
           ${location}
-          <p>${event.description}</p>
-          <button class="btn calendar-download" type="button" data-event-index="${eventIndex}">Dieses Event herunterladen (.ics)</button>
+          <p>${getEventText(event, 'description')}</p>
+          <button class="btn calendar-download" type="button" data-event-index="${eventIndex}">${window.t('calendar.downloadEvent')}</button>
         </article>
       `;
     })
@@ -158,7 +171,7 @@ function renderEvents(dateKey) {
 
   if (!items.length) {
     eventList.innerHTML = `
-      <li class="event-empty">Keine besonderen Events an diesem Tag.</li>
+      <li class="event-empty">${window.t('calendar.empty')}</li>
     `;
     return;
   }
@@ -170,11 +183,11 @@ function renderEvents(dateKey) {
       return `
         <li class="event-item category-${category}">
           <div class="event-item-head">
-            <strong>${event.title}</strong>
+            <strong>${getEventText(event, 'title')}</strong>
             <span class="event-badge category-${category}">${getCategoryLabel(event.category || event.kind || 'special')}</span>
           </div>
           ${timeMarkup}
-          <span>${event.description}</span>
+          <span>${getEventText(event, 'description')}</span>
         </li>
       `;
     })
@@ -184,7 +197,7 @@ function renderEvents(dateKey) {
 function renderCalendar() {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
-  monthLabel.textContent = new Intl.DateTimeFormat('de-DE', {
+  monthLabel.textContent = new Intl.DateTimeFormat(window.siteLanguage === 'en' ? 'en-GB' : 'de-DE', {
     month: 'long',
     year: 'numeric'
   }).format(new Date(year, month, 1));
@@ -214,7 +227,7 @@ function renderCalendar() {
     cell.dataset.date = dateKey;
     cell.innerHTML = `
       <span class="day-number">${day}</span>
-      ${dayItems.length ? '<span class="day-dot" aria-label="Event"></span>' : ''}
+      ${dayItems.length ? `<span class="day-dot" aria-label="${window.t('calendar.event')}"></span>` : ''}
     `;
 
     if (dayItems.length) {
@@ -282,5 +295,12 @@ if (detailModal) {
     if (event.target === detailModal) closeDetailModal();
   });
 }
+
+document.addEventListener('languagechange', () => {
+  renderCalendar();
+  if (selectedDateKey && detailModal && !detailModal.hidden) {
+    openDetailModal(selectedDateKey);
+  }
+});
 
 renderCalendar();
