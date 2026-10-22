@@ -71,7 +71,24 @@
     <p>&copy; 2024 Luke's Cardshop. Alle Rechte vorbehalten.</p>
   </footer>
 
-  <script src="calendar-data.js"></script>
-  <script src="calendar.js"></script>
+  <script>
+    const calendarDataScript = document.createElement('script');
+    calendarDataScript.src = `calendar-data.js?v=${Date.now()}`;
+    calendarDataScript.onload = () => {
+      const calendarScript = document.createElement('script');
+      calendarScript.src = `calendar.js?v=${Date.now()}`;
+      calendarScript.onerror = () => {
+        document.getElementById('eventList').innerHTML =
+          '<li class="event-empty">Der Kalender konnte nicht geladen werden. Bitte lade die Seite später erneut.</li>';
+      };
+      document.body.appendChild(calendarScript);
+    };
+    calendarDataScript.onerror = () => {
+      document.getElementById('monthLabel').textContent = 'Events nicht verfügbar';
+      document.getElementById('eventList').innerHTML =
+        '<li class="event-empty">Eventdaten konnten nicht geladen werden. Bitte lade die Seite später erneut.</li>';
+    };
+    document.body.appendChild(calendarDataScript);
+  </script>
 </body>
 </html>
