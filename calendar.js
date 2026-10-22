@@ -7,7 +7,6 @@ const detailModal = document.getElementById('eventDetailModal');
 const detailModalTitle = document.getElementById('eventDetailTitle');
 const detailModalBody = document.getElementById('eventDetailBody');
 const detailModalClose = document.getElementById('eventDetailClose');
-const downloadCalendarBtn = document.getElementById('downloadCalendar');
 
 const events = Array.isArray(window.specialEvents) ? window.specialEvents : [];
 let currentDate = new Date();
@@ -72,26 +71,17 @@ function createCalendarFile(upcomingEvents) {
   ].join('\r\n');
 }
 
-function downloadCalendar() {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const upcomingEvents = events.filter((event) => {
-    const eventDate = new Date(`${event.date}T00:00:00`);
-    return !Number.isNaN(eventDate.getTime()) && eventDate >= today;
-  });
-
-  if (!upcomingEvents.length) {
-    downloadCalendarBtn.disabled = true;
-    downloadCalendarBtn.textContent = 'Keine kommenden Events';
-    return;
-  }
-
-  const calendarFile = new Blob([createCalendarFile(upcomingEvents)], {
+function downloadCalendar(event) {
+  const calendarFile = new Blob([createCalendarFile([event])], {
     type: 'text/calendar;charset=utf-8'
   });
   const downloadLink = document.createElement('a');
   downloadLink.href = URL.createObjectURL(calendarFile);
-  downloadLink.download = 'lukes-cardshop-events.ics';
+  const safeTitle = String(event.title || 'event')
+    .toLowerCase()
+    .replace(/[^a-z0-9-]+/g, '-')
+    .replace(/^-|-$/g, '');
+  downloadLink.download = `${event.date}-${safeTitle || 'event'}.ics`;
   document.body.appendChild(downloadLink);
   downloadLink.click();
   downloadLink.remove();
@@ -140,6 +130,7 @@ function openDetailModal(dateKey) {
   detailModalBody.innerHTML = items
     .map((event) => {
       const category = normalizeCategory(event.category || event.kind || 'special');
+      const eventIndex = events.indexOf(event);
       const location = event.location ? `<p><strong>Ort:</strong> ${event.location}</p>` : '';
       const time = event.time ? `<p><strong>Uhrzeit:</strong> ${event.time}</p>` : '';
       return `
@@ -149,6 +140,7 @@ function openDetailModal(dateKey) {
           ${time}
           ${location}
           <p>${event.description}</p>
+          <button class="btn calendar-download" type="button" data-event-index="${eventIndex}">Dieses Event herunterladen (.ics)</button>
         </article>
       `;
     })
@@ -274,8 +266,15 @@ if (detailModalClose) {
   detailModalClose.addEventListener('click', closeDetailModal);
 }
 
-if (downloadCalendarBtn) {
-  downloadCalendarBtn.addEventListener('click', downloadCalendar);
+if (detailModalBody) {
+  detailModalBody.addEventListener('click', (event) => {
+    const downloadButton = event.target.closest('.calendar-download');
+    if (!downloadButton) return;
+
+    const eventIndex = Number(downloadButton.dataset.eventIndex);
+    const selectedEvent = events[eventIndex];
+    if (selectedEvent) downloadCalendar(selectedEvent);
+  });
 }
 
 if (detailModal) {

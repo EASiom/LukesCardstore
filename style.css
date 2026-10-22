@@ -408,7 +408,7 @@ footer {
   gap: 12px;
 }
 
-.calendar-download {
+.event-detail-item .calendar-download {
   margin-top: 12px;
   border: 0;
   cursor: pointer;
